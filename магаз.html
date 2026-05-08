@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Время пенного | пиво и закуски</title>
+    <link rel="stylesheet" href="магаз.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo">
+            <i class="fas fa-beer"></i>
+            <span>Время пенного</span>
+        </div>
+        <div class="nav-links">
+            <a href="#catalog">Каталог</a>
+            <a href="#pickup">Самовывоз</a>
+            <a href="#footer">Контакты</a>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Свежее пиво <br>и закуски</h1>
+            <p>Только холодное и свежее. Самовывоз сегодня.</p>
+            <span class="hero-highlight"><i class="fas fa-truck-fast"></i> самовывоз сегодня</span>
+        </div>
+        <div class="hero-image">
+    <img src="логотип.webp" alt="пиво" class="hero-img">
+</div>
+    </section>
+
+    <div class="filter-section">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Все меню</button>
+            <button class="filter-btn" data-filter="dark">Тёмное</button>
+            <button class="filter-btn" data-filter="light">Светлое</button>
+            <button class="filter-btn" data-filter="new">Новинки</button>
+            <div class="dropdown">
+                <button class="filter-btn dropdown-btn">Закуски <i class="fas fa-chevron-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="#" data-filter="fish">Рыба</a>
+                    <a href="#" data-filter="snacks">Снеки</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title" id="catalog">
+        <i class="fas fa-beer"></i>
+        <span>Наш ассортимент</span>
+    </div>
+
+    <div class="beer-grid" id="catalog-grid"></div>
+
+    <section class="pickup-info" id="pickup">
+        <h3>Самовывоз</h3>
+        <div class="pickup-points">
+            <div class="point"><i class="fas fa-map-pin"></i> Пункт самовывоза: г. Боровск, ул. Коммунистическая, 137А (ежедневно 10:00–22:00)</div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer container" id="footer">
+    <p>© 2026 Время пенного — пиво и закуски. 18+</p>
+    <p style="margin-top: 10px;">Контакты: +7 (980) 512-49-09</p>
+</footer>
+
+<script>
+    (function() {
+        // ТОВАРЫ (добавляйте новые сюда)
+        const products = [
+            // Пиво
+            { id: 1, name: 'Домашнее (ф)', desc: ' 6.2%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: true },
+            { id: 2, name: 'Бархатное (ф)', desc: ' 5.8%', price: 1, icon: '🍺', type: 'beer', subtype: 'dark', isNew: true },
+            { id: 3, name: 'Жигули (ф)', desc: ' 4.5%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: true },
+            { id: 4, name: 'Два бобра', desc: ' 4.7%', price: 1, icon: '🍺', type: 'beer', subtype: 'dark', isNew: false },
+            { id: 5, name: 'Белое (н/ф)', desc: ' 4.0%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 6, name: 'Белый бим(н/ф)', desc: ' 5.0%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 7, name: 'Белый кролик(н/ф)', desc: ' 4.8%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 8, name: 'Боровское(ф)', desc: ' 4.5%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 9, name: 'Воронежское(н/ф)', desc: ' 4.7%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 10, name: 'Чешское(ф)', desc: ' 4.5%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 11, name: 'Фирменное(ф)', desc: ' 5.0%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 12, name: 'Жиулевское(ф)', desc: ' 5.0%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 13, name: 'Братец лис(н/ф)', desc: ' 4.8%', price: 1, icon: '🍺', type: 'beer', subtype: 'dark', isNew: false },
+            { id: 14, name: 'Червовый валет(ф)', desc: ' 5.4%', price: 1, icon: '🍺', type: 'beer', subtype: 'dark', isNew: false },
+            { id: 15, name: 'Марочное(н/ф)', desc: ' 4.5%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 16, name: 'Марочное(ф)', desc: ' 4.5%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 17, name: 'Крюгер(ф)', desc: ' 4.8%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            { id: 18, name: 'Ячменное(ф)', desc: ' 4.0%', price: 1, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+            
+            // Рыба
+            { id: 19, name: 'Окунь', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 20, name: 'Вяленый лещ', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 21, name: 'Красноперка', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 22, name: 'Чехонь', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 23, name: 'Тарань', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 24, name: 'Чипсы куриные', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 25, name: 'Чипсы индейка', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 26, name: 'Чипсы свинина', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 27, name: 'Сыр паприка', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 28, name: 'Сыр косичка', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 29, name: 'Икра сельди в масле', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 30, name: 'Вобла', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 31, name: 'Стрипсы куриные', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 32, name: 'Сыр моцарелла', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 33, name: 'Сыр жареный оливковый', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 34, name: 'Тарань', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 35, name: 'Тарань', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 36, name: 'Спинки янтарные', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 37, name: 'Осьминог экстра', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 38, name: 'Полоски кальмара', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 39, name: 'Кальмар по шанхайски', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 40, name: 'Мясо кальмара экстра', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 41, name: 'Королевский полосатик', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 42, name: 'Желтый полосатик', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 43, name: 'Лакедра', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 44, name: 'Янтарная с перцем', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 45, name: 'Паутинка семги', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 46, name: 'Стружка кальмара со вкусом краба', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 47, name: 'Стружка кальмара', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 48, name: 'Стружка по шанхайски', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 49, name: 'Камбола деликатесная', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 50, name: 'Анчоус', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 51, name: 'Самурай (горбуша)', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 52, name: 'Паутинка форели', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 53, name: 'Соломка ментая', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 54, name: 'Соломка ментая с перцем', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 55, name: 'Вяленсы из мраморной говядины', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 56, name: 'Ушки свиные паприка', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 57, name: 'Ушки свиные чеснок', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 58, name: 'Ушки свиные острые', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 59, name: 'Ушки свиные холодец/хрен', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 60, name: 'Ушки свиные горчица', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+            { id: 61, name: 'Ушки свиные классические', desc: '', price: 1, icon: '🐟', type: 'snack', subtype: 'fish', isNew: false },
+
+
+            
+
+
+
+
+            
+            // Снеки
+            { id: 62, name: 'Арахис с солью', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 63, name: 'Арахис с аджикой', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 64, name: 'Арахис холодец/хрен', desc: '', price: 1, icon: '🦐', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 65, name: 'Арахис красная икра', desc: '', price: 1, icon: '🦑', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 66, name: 'Чипсы с беконом ', desc: '', price: 1, icon: '🥜', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 67, name: 'Чипсы с крабом', desc: '', price: 1, icon: '🥨', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 68, name: 'Чипсы сметана и лук', desc: '', price: 1, icon: '🍞', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 69, name: 'Гренки том ям', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 70, name: 'Гренки с трюфелем', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 71, name: 'Бобы', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 72, name: 'Кукуруза', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 73, name: 'Соевое мясо', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 74, name: 'Чипсы BRUTO', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 75, name: 'Начос барбекю', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 76, name: 'Сырные шарики', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 77, name: 'Бочонок', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 78, name: 'Гренки утка по пекински', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 79, name: 'Гренки томат/зелень', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 80, name: 'Гренки красная икра', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 81, name: 'Гренки тайский перец', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 82, name: 'Гренки чеснок', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 83, name: 'Гренки лечо', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 84, name: 'Гренки холодец/хрен', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 85, name: 'Гренки со шкварками', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 86, name: 'Арахис в глазури морской микс', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 87, name: 'Арахис в глазури микс', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 88, name: 'Арахис в глазури красная икра', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 89, name: 'Арахис в глазури бекон', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 90, name: 'Арахис в глазури сыр', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 91, name: 'Арахис в глазури креветка', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 92, name: 'Арахис в глазури васаби', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 93, name: 'Фисташки соленые', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 94, name: 'Фисташки микс', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 95, name: 'Арахис с дымком', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+            { id: 96, name: 'Кешью соленый', desc: '', price: 1, icon: '🍟', type: 'snack', subtype: 'snacks', isNew: false },
+
+
+
+
+
+            
+            // 👇 НОВЫЙ ТОВАР ДОБАВЛЯЙТЕ СЮДА (перед закрывающей скобкой)
+            // { id: 23, name: 'Название', desc: 'Описание', price: 350, icon: '🍺', type: 'beer', subtype: 'light', isNew: false },
+        ];
+
+        let currentFilter = 'all';
+
+        const catalogGrid = document.getElementById('catalog-grid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const dropdownLinks = document.querySelectorAll('.dropdown-content a');
+
+        function getFilteredProducts() {
+            switch (currentFilter) {
+                case 'all': return products;
+                case 'dark': return products.filter(p => p.type === 'beer' && p.subtype === 'dark');
+                case 'light': return products.filter(p => p.type === 'beer' && p.subtype === 'light');
+                case 'new': return products.filter(p => p.isNew === true);
+                case 'fish': return products.filter(p => p.type === 'snack' && p.subtype === 'fish');
+                case 'snacks': return products.filter(p => p.type === 'snack' && p.subtype === 'snacks');
+                default: return products;
+            }
+        }
+
+        function renderProducts() {
+            const filtered = getFilteredProducts();
+            catalogGrid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                catalogGrid.innerHTML = '<p style="text-align:center; padding:40px;">Ничего не найдено</p>';
+                return;
+            }
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'beer-card';
+                
+                let icon = product.icon;
+                if (product.type === 'snack') {
+                    icon = product.subtype === 'fish' ? '🐟' : '🍿';
+                }
+                
+                const newBadge = product.isNew ? '<span class="beer-badge">новинка</span>' : '';
+                
+                card.innerHTML = `
+                    <div class="beer-img">${icon}</div>
+                    <div class="beer-name">
+                        ${product.name}
+                        ${newBadge}
+                    </div>
+                    <div class="beer-desc">${product.desc}</div>
+                    <div class="beer-footer">
+                        <span class="beer-price">${product.price} ₽ <small>/${product.type === 'beer' ? '0.5л' : 'порция'}</small></span>
+                    </div>
+                `;
+                catalogGrid.appendChild(card);
+            });
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                if (filter) {
+                    currentFilter = filter;
+                    renderProducts();
+                }
+            });
+        });
+
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const filter = this.dataset.filter;
+                currentFilter = filter;
+                filterButtons.forEach(b => b.classList.remove('active'));
+                document.querySelector('.dropdown-btn').classList.add('active');
+                renderProducts();
+            });
+        });
+
+        renderProducts();
+    })();
+</script>
+</body>
+</html>
